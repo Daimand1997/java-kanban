@@ -1,24 +1,28 @@
 package ru.yandex.tasks;
 
+import ru.yandex.enums.Status;
+
 public class Task {
 
-    private String name;
-    private String description;
-    private int id;
-    private String status;
+    protected String name;
+    protected String description;
+    protected int id;
+    protected Status status;
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.status = "NEW";
+        this.status = Status.NEW;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        if (status.equals("NEW") || status.equals("IN_PROGRESS") || status.equals("DONE")) {
+    public void setStatus(Status status) {
+        if (status.equals(Status.NEW)
+                || status.equals(Status.IN_PROGRESS)
+                || status.equals(Status.DONE)) {
             this.status = status;
         }
     }
@@ -49,11 +53,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return "epic={"
-                + "name='" + getName() + "', "
-                + "status='" + getStatus() + "', "
-                + "description='" + getDescription() + "', "
-                + "id='" + getId() + "'"
-                + "}";
+        return "Task{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                '}';
     }
 }
