@@ -42,4 +42,5 @@ public interface TaskManager {
 
     List<Epic> getAllEpic();
 
+    List<Task> getHistory();
 }

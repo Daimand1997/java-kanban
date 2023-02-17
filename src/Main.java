@@ -22,8 +22,7 @@ public class Main {
         taskManager.getTaskById(task.getId());
         taskManager.getSubTaskById(subTask.getId());
 
-        HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
-        for (Task historyTask : inMemoryHistoryManager.getHistory()) {
+        for (Task historyTask : taskManager.getHistory()) {
             System.out.println(historyTask);
         }
     }
