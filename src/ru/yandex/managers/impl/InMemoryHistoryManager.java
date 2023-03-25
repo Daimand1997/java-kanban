@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final static int HISTORY_LIMIT = 10;
     private static final Map<Integer, Node<Task>> historyIdAndNodeTaskMap = new LinkedHashMap<>();
     private static final CustomLinkedList<Task> historyList = new CustomLinkedList<>();
 
@@ -24,7 +23,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         if(createdNodeTask != null) {
             historyIdAndNodeTaskMap.put(id, createdNodeTask);
         }
-        deleteElementByHistory();
     }
 
     public List<Task> getHistory() {
@@ -35,14 +33,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void remove(int id) {
         historyList.removeNode(historyIdAndNodeTaskMap.get(id));
         historyIdAndNodeTaskMap.remove(id);
-    }
-
-    private void deleteElementByHistory() {
-        if (historyIdAndNodeTaskMap.size() >= HISTORY_LIMIT) {
-            int id = historyIdAndNodeTaskMap.entrySet().iterator().next().getKey();
-            historyList.removeHead();
-            historyIdAndNodeTaskMap.remove(id);
-        }
     }
 
     public static class CustomLinkedList<T extends Task> {
@@ -96,14 +86,6 @@ public class InMemoryHistoryManager implements HistoryManager {
                 prevRemoveTask.next = nextRemoveTask;
                 nextRemoveTask.prev = prevRemoveTask;
             }
-            size--;
-        }
-
-        private void removeHead() {
-            if (head == null) {
-                return;
-            }
-            head = head.next;
             size--;
         }
     }
