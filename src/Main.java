@@ -1,8 +1,5 @@
 import ru.yandex.enums.Status;
-import ru.yandex.managers.HistoryManager;
 import ru.yandex.managers.TaskManager;
-import ru.yandex.managers.impl.InMemoryHistoryManager;
-import ru.yandex.managers.impl.InMemoryTaskManager;
 import ru.yandex.managers.impl.Managers;
 import ru.yandex.tasks.Epic;
 import ru.yandex.tasks.SubTask;
@@ -30,32 +27,56 @@ public class Main {
         System.out.println("////////////////////////////////////////");
         System.out.println("Вывод после создания: ");
         System.out.println("////////////////////////////////////////");
-        for (Task historyTask : taskManager.getHistory()) {
-            System.out.println(historyTask);
+        for(Task taskOwn : taskManager.getAllTask()) {
+            System.out.println(taskOwn);
+        }
+        for(Task subTaskOwn : taskManager.getAllSubTask()) {
+            System.out.println(subTaskOwn);
+        }
+        for(Task epicOwn : taskManager.getAllEpic()) {
+            System.out.println(epicOwn);
         }
 
         taskManager.deleteTaskById(task.getId());
         System.out.println("////////////////////////////////////////");
         System.out.println("Вывод после удаления таски: ");
         System.out.println("////////////////////////////////////////");
-        for (Task historyTask : taskManager.getHistory()) {
-            System.out.println(historyTask);
+        for(Task taskOwn : taskManager.getAllTask()) {
+            System.out.println(taskOwn);
+        }
+        for(Task subTaskOwn : taskManager.getAllSubTask()) {
+            System.out.println(subTaskOwn);
+        }
+        for(Task epicOwn : taskManager.getAllEpic()) {
+            System.out.println(epicOwn);
         }
 
         taskManager.deleteEpicById(epic.getId());
         System.out.println("////////////////////////////////////////");
         System.out.println("Вывод после удаления эпика с тремя подзадачами: ");
         System.out.println("////////////////////////////////////////");
-        for (Task historyTask : taskManager.getHistory()) {
-            System.out.println(historyTask);
+        for(Task taskOwn : taskManager.getAllTask()) {
+            System.out.println(taskOwn);
+        }
+        for(Task subTaskOwn : taskManager.getAllSubTask()) {
+            System.out.println(subTaskOwn);
+        }
+        for(Task epicOwn : taskManager.getAllEpic()) {
+            System.out.println(epicOwn);
         }
 
         taskManager.deleteEpicById(epic2.getId());
         System.out.println("////////////////////////////////////////");
         System.out.println("Вывод после удаления эпика без подзадач: ");
         System.out.println("////////////////////////////////////////");
-        for (Task historyTask : taskManager.getHistory()) {
-            System.out.println(historyTask);
+        for(Task taskOwn : taskManager.getAllTask()) {
+            System.out.println(taskOwn);
+        }
+        for(Task subTaskOwn : taskManager.getAllSubTask()) {
+            System.out.println(subTaskOwn);
+        }
+        for(Task epicOwn : taskManager.getAllEpic()) {
+            System.out.println(epicOwn);
         }
 
         Task task4 = new Task("Крякать", "Кряк-кряк");
@@ -68,8 +89,14 @@ public class Main {
         System.out.println("////////////////////////////////////////");
         System.out.println("Вывод после создания новой таски и эпика: ");
         System.out.println("////////////////////////////////////////");
-        for (Task historyTask : taskManager.getHistory()) {
-            System.out.println(historyTask);
+        for(Task taskOwn : taskManager.getAllTask()) {
+            System.out.println(taskOwn);
+        }
+        for(Task subTaskOwn : taskManager.getAllSubTask()) {
+            System.out.println(subTaskOwn);
+        }
+        for(Task epicOwn : taskManager.getAllEpic()) {
+            System.out.println(epicOwn);
         }
     }
 }
