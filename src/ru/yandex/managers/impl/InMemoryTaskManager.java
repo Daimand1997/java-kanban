@@ -15,9 +15,9 @@ import java.util.Map;
 public class InMemoryTaskManager implements TaskManager {
 
     HistoryManager historyManager = Managers.getDefaultHistory();
-    private Map<Integer, Task> tasks = new HashMap<>();
-    private Map<Integer, SubTask> subTasks = new HashMap<>();
-    private Map<Integer, Epic> epics = new HashMap<>();
+    private final Map<Integer, Task> tasks = new HashMap<>();
+    private final Map<Integer, SubTask> subTasks = new HashMap<>();
+    private final Map<Integer, Epic> epics = new HashMap<>();
     private int idNewTask = 1;
 
     public List<Task> getHistory() {
@@ -50,6 +50,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void createTask(Task task) {
         task.setId(idNewTask);
         tasks.put(idNewTask, task);
+        historyManager.add(task);
         idNewTask++;
     }
 
@@ -57,6 +58,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void createSubTask(SubTask subTask) {
         subTask.setId(idNewTask);
         subTasks.put(idNewTask, subTask);
+        historyManager.add(subTask);
         checkStatusEpicById(subTask.getIdEpic());
         idNewTask++;
     }
@@ -65,26 +67,36 @@ public class InMemoryTaskManager implements TaskManager {
     public void createEpic(Epic epic) {
         epic.setId(idNewTask);
         epics.put(idNewTask, epic);
+        historyManager.add(epic);
         idNewTask++;
     }
 
     @Override
     public void deleteTaskById(int id) {
         tasks.remove(id);
+        historyManager.remove(id);
     }
 
     @Override
     public void deleteEpicById(int id) {
         deleteSubTaskByIdEpic(id);
         epics.remove(id);
+        historyManager.remove(id);
     }
 
     @Override
     public void deleteSubTaskByIdEpic(int id) {
-        for (int i = subTasks.size() - 1; i > 0; i--) {
-            if (subTasks.get(i).getIdEpic() == id) {
-                subTasks.remove(i);
+        List<Integer> idRemoveSubTask = new ArrayList<>();
+        for(SubTask subTask : subTasks.values()) {
+            int idEpicSubTask = subTask.getIdEpic();
+            if(idEpicSubTask == id) {
+                idRemoveSubTask.add(subTask.getId());
             }
+        }
+
+        for(Integer idSubtaskFromDelete : idRemoveSubTask) {
+            historyManager.remove(idSubtaskFromDelete);
+            subTasks.remove(idSubtaskFromDelete);
         }
     }
 
