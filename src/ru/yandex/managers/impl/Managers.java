@@ -1,12 +1,12 @@
 package ru.yandex.managers.impl;
 
 import ru.yandex.managers.HistoryManager;
-import ru.yandex.managers.TaskManager;
+import ru.yandex.managers.TasksManager;
 
 public class Managers {
 
-    public static TaskManager getDefault() {
-        return new InMemoryTaskManager();
+    public static TasksManager getDefault() {
+        return new InMemoryTasksManager();
     }
 
     public static HistoryManager getDefaultHistory() {

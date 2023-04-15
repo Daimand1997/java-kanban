@@ -6,7 +6,7 @@ import ru.yandex.tasks.Task;
 
 import java.util.List;
 
-public interface TaskManager {
+public interface TasksManager {
 
     void updateTask(Task task);
 
@@ -42,5 +42,7 @@ public interface TaskManager {
 
     List<Epic> getAllEpic();
 
-    List<Task> getHistory();
+    HistoryManager getHistory();
+
+    void setHistory(HistoryManager historyManager);
 }

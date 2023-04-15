@@ -1,0 +1,7 @@
+id,type,name,status,description,epic
+6,TASK,Поспать,NEW,Храп-храп,
+8,TASK,Крякать,NEW,Кряк-кряк,
+9,EPIC,Улететь,DONE,Хлоп-хлоп,
+10,SUBTASK,Открыть дверь,DONE,Хлоп-хлоп,9
+
+8,6,9,10
