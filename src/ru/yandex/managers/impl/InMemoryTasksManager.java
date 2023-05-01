@@ -45,6 +45,9 @@ public class InMemoryTasksManager implements TasksManager {
     @Override
     public void createTask(Task task) {
         if(task.getId() == 0) {
+            while (checkContainsIdInAllObject(idNewTask)) {
+                idNewTask++;
+            }
             task.setId(idNewTask);
         }
         tasks.put(task.getId(), task);
@@ -54,6 +57,9 @@ public class InMemoryTasksManager implements TasksManager {
     @Override
     public void createSubTask(SubTask subTask) {
         if(subTask.getId() == 0) {
+            while (checkContainsIdInAllObject(idNewTask)) {
+                idNewTask++;
+            }
             subTask.setId(idNewTask);
         }
         subTasks.put(subTask.getId(), subTask);
@@ -64,6 +70,9 @@ public class InMemoryTasksManager implements TasksManager {
     @Override
     public void createEpic(Epic epic) {
         if(epic.getId() == 0) {
+            while (checkContainsIdInAllObject(idNewTask)) {
+                idNewTask++;
+            }
             epic.setId(idNewTask);
         }
         epics.put(epic.getId(), epic);
@@ -177,5 +186,18 @@ public class InMemoryTasksManager implements TasksManager {
         if (!epics.get(id).getStatus().equals(status)) {
             epics.get(id).setStatus(status);
         }
+    }
+
+    private boolean checkContainsIdInAllObject(Integer id) {
+        if(tasks.containsKey(id)) {
+            return true;
+        }
+        if(subTasks.containsKey(id)) {
+            return true;
+        }
+        if(epics.containsKey(id)) {
+            return true;
+        }
+        return false;
     }
 }
