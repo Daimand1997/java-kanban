@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import ru.yandex.enums.Status;
 import ru.yandex.managers.TasksManager;
 import ru.yandex.managers.impl.InMemoryTasksManager;
@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class EpicTest {
 
     @Test
-    void emptySubTasks() {
+    public void emptySubTasks() {
         TasksManager tasksManager = new InMemoryTasksManager();
         assertEquals(0, tasksManager.getAllSubTask().size());
     }
 
     @Test
-    void newAllSubTasks() {
+    public void newAllSubTasks() {
         TasksManager tasksManager = new InMemoryTasksManager();
         Task epic = new Epic("Погулять", "Прыг-прыг");
         tasksManager.createEpic((Epic) epic);
@@ -32,7 +32,7 @@ class EpicTest {
     }
 
     @Test
-    void doneAllSubTasks() {
+    public void doneAllSubTasks() {
         TasksManager tasksManager = new InMemoryTasksManager();
         Task epic = new Epic("Погулять", "Прыг-прыг");
         tasksManager.createEpic((Epic) epic);
@@ -46,7 +46,7 @@ class EpicTest {
     }
 
     @Test
-    void doneAndNewAllSubTasks() {
+    public void doneAndNewAllSubTasks() {
         TasksManager tasksManager = new InMemoryTasksManager();
         Task epic = new Epic("Погулять", "Прыг-прыг");
         tasksManager.createEpic((Epic) epic);
@@ -62,7 +62,7 @@ class EpicTest {
     }
 
     @Test
-    void inProgressAllSubTasks() {
+    public void inProgressAllSubTasks() {
         TasksManager tasksManager = new InMemoryTasksManager();
         Task epic = new Epic("Погулять", "Прыг-прыг");
         tasksManager.createEpic((Epic) epic);
