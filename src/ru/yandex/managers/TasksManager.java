@@ -5,16 +5,17 @@ import ru.yandex.tasks.SubTask;
 import ru.yandex.tasks.Task;
 
 import java.util.List;
+import java.util.TreeSet;
 
 public interface TasksManager {
 
-    void updateTask(Task task);
+    void updateTask(Task task) throws Exception;
 
     void updateEpic(Epic epic);
 
     void updateSubTask(SubTask subTask);
 
-    void createTask(Task task);
+    void createTask(Task task) throws Exception;
 
     void createSubTask(SubTask subTask);
 
@@ -37,6 +38,8 @@ public interface TasksManager {
     void deleteAllTask();
 
     List<Task> getAllTask();
+
+    TreeSet<Task> getPrioritizedTasks();
 
     List<SubTask> getAllSubTask();
 

@@ -5,10 +5,17 @@ import ru.yandex.tasks.Epic;
 import ru.yandex.tasks.SubTask;
 import ru.yandex.tasks.Task;
 
+import javax.xml.datatype.Duration;
+import java.time.LocalDateTime;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Task task = new Task("Покушать", "Ням-ням");
+        task.setDuration(1000);
+        task.setStartTime(LocalDateTime.now());
         Task task2 = new Task("Поспать", "Храп-храп");
+        task2.setDuration(500);
+        task2.setStartTime(LocalDateTime.now().plusSeconds(2000));
         Task epic = new Epic("Погулять", "Прыг-прыг");
         Task epic2 = new Epic("Убрать комнату", "Чик-пых");
 
@@ -80,6 +87,8 @@ public class Main {
         }
 
         Task task4 = new Task("Крякать", "Кряк-кряк");
+        task4.setDuration(400);
+        task4.setStartTime(LocalDateTime.now().plusSeconds(11111));
         Task epic3 = new Epic("Улететь", "Хлоп-хлоп");
         tasksManager.createTask(task4);
         tasksManager.createEpic((Epic) epic3);
@@ -98,5 +107,10 @@ public class Main {
         for(Task epicOwn : tasksManager.getAllEpic()) {
             System.out.println(epicOwn);
         }
+
+        System.out.println("////////////////////////////////////////");
+        System.out.println("Отсортированные задачи по дате: ");
+        System.out.println("////////////////////////////////////////");
+        System.out.println(tasksManager.getPrioritizedTasks());
     }
 }
