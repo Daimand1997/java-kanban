@@ -3,12 +3,9 @@ import org.junit.jupiter.api.Test;
 import ru.yandex.managers.TasksManager;
 import ru.yandex.managers.impl.FileBackedTasksManager;
 import ru.yandex.managers.impl.InMemoryHistoryManager;
-import ru.yandex.managers.impl.InMemoryTasksManager;
 import ru.yandex.tasks.Epic;
 import ru.yandex.tasks.SubTask;
 import ru.yandex.tasks.Task;
-
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,15 +1,13 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.enums.Status;
 import ru.yandex.managers.HistoryManager;
 import ru.yandex.managers.TasksManager;
-import ru.yandex.managers.impl.InMemoryTasksManager;
 import ru.yandex.tasks.Epic;
 import ru.yandex.tasks.SubTask;
 import ru.yandex.tasks.Task;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 abstract class TaskManagerTest<T extends TasksManager> {
 
