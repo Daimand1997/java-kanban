@@ -51,7 +51,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (oldTail == null)
                 head = createdNode;
             else
-                oldTail.next = createdNode;
+                oldTail.setNext(createdNode);
             size++;
             return createdNode;
         }
@@ -60,8 +60,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             ArrayList<T> listTask = new ArrayList<>();
             Node<T> startHead = head;
             while (startHead != null) {
-                listTask.add(startHead.data);
-                startHead = startHead.next;
+                listTask.add(startHead.getData());
+                startHead = startHead.getNext();
             }
             return listTask;
         }
@@ -70,21 +70,21 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (nodeTask == null || head == null || tail == null) {
                 return;
             }
-            Node<T> prevRemoveTask = nodeTask.prev;
-            Node<T> nextRemoveTask = nodeTask.next;
+            Node<T> prevRemoveTask = nodeTask.getPrev();
+            Node<T> nextRemoveTask = nodeTask.getNext();
 
             if(head.equals(nodeTask) && tail.equals(nodeTask)) {
                 head = null;
                 tail = null;
             } else if(head.equals(nodeTask)) {
                 head = nextRemoveTask;
-                head.prev = null;
+                head.setPrev(null);
             } else if(tail.equals(nodeTask)) {
                 tail = prevRemoveTask;
-                tail.next = null;
+                tail.setNext(null);
             } else {
-                prevRemoveTask.next = nextRemoveTask;
-                nextRemoveTask.prev = prevRemoveTask;
+                prevRemoveTask.setNext(nextRemoveTask);
+                nextRemoveTask.setPrev(prevRemoveTask);
             }
             size--;
         }

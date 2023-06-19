@@ -6,7 +6,7 @@ import ru.yandex.managers.TasksManager;
 public class Managers {
 
     public static TasksManager getDefault() {
-        return new InMemoryTasksManager();
+        return new FileBackedTasksManager("resources/saveTasks.csv");
     }
 
     public static HistoryManager getDefaultHistory() {

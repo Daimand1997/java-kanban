@@ -1,6 +1,7 @@
 package ru.yandex.managers.impl;
 
 import ru.yandex.enums.Status;
+import ru.yandex.exceptions.ManagerException;
 import ru.yandex.managers.HistoryManager;
 import ru.yandex.managers.TasksManager;
 import ru.yandex.tasks.Epic;
@@ -19,13 +20,8 @@ public class InMemoryTasksManager implements TasksManager {
     private final TreeSet<Task> priorityTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime));
 
     @Override
-    public void updateTask(Task task) throws Exception {
-        for(Task taskPriority : priorityTasks) {
-            if(task.getStartTime().isAfter(taskPriority.getStartTime()) && task.getStartTime().isBefore(taskPriority.getEndTime())
-                    || taskPriority.getStartTime().isAfter(task.getStartTime()) && taskPriority.getStartTime().isBefore(task.getEndTime())) {
-                throw new Exception("Пересечение дат");
-            }
-        }
+    public void updateTask(Task task) {
+        checkCrossTask(task);
         if (tasks.containsKey(task.getId())) {
             priorityTasks.remove(tasks.get(task.getId()));
             tasks.put(task.getId(), task);
@@ -49,13 +45,8 @@ public class InMemoryTasksManager implements TasksManager {
     }
 
     @Override
-    public void createTask(Task task) throws Exception {
-        for(Task taskPriority : priorityTasks) {
-            if(task.getStartTime().isAfter(taskPriority.getStartTime()) && task.getStartTime().isBefore(taskPriority.getEndTime())
-            || taskPriority.getStartTime().isAfter(task.getStartTime()) && taskPriority.getStartTime().isBefore(task.getEndTime())) {
-                throw new Exception("Пересечение дат");
-            }
-        }
+    public void createTask(Task task) {
+        checkCrossTask(task);
         if(task.getId() == 0) {
             while (checkContainsIdInAllObject(idNewTask)) {
                 idNewTask++;
@@ -211,6 +202,15 @@ public class InMemoryTasksManager implements TasksManager {
         }
         if (!epics.get(id).getStatus().equals(status)) {
             epics.get(id).setStatus(status);
+        }
+    }
+
+    private void checkCrossTask(Task task) {
+        for(Task taskPriority : priorityTasks) {
+            if(task.getStartTime().isAfter(taskPriority.getStartTime()) && task.getStartTime().isBefore(taskPriority.getEndTime())
+                    || taskPriority.getStartTime().isAfter(task.getStartTime()) && taskPriority.getStartTime().isBefore(task.getEndTime())) {
+                throw new ManagerException("Пересечение дат");
+            }
         }
     }
 

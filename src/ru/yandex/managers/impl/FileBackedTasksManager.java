@@ -2,9 +2,9 @@ package ru.yandex.managers.impl;
 
 import ru.yandex.enums.Status;
 import ru.yandex.enums.TypeTask;
-import ru.yandex.exceptions.ManagerLoadException;
-import ru.yandex.exceptions.ManagerSaveException;
+import ru.yandex.exceptions.ManagerException;
 import ru.yandex.managers.HistoryManager;
+import ru.yandex.managers.TasksManager;
 import ru.yandex.tasks.Epic;
 import ru.yandex.tasks.SubTask;
 import ru.yandex.tasks.Task;
@@ -27,8 +27,8 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
         this.file = new File(path);
     }
 
-    public static void main(String[] args) throws Exception {
-        FileBackedTasksManager tasksManager = new FileBackedTasksManager("resources/saveTasks.csv");
+    public static void main(String[] args) {
+        FileBackedTasksManager tasksManager = (FileBackedTasksManager) Managers.getDefault();
         tasksManager = loadFromFile(tasksManager.file.getPath());
         Task task = new Task("Покушать", "Ням-ням");
         task.setDuration(1000);
@@ -177,7 +177,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
             fileBackedTasksManager.setHistory(historyManager);
 
         } catch (Exception e) {
-            throw new ManagerLoadException("Ошибка загрузки данных из файла. " + e.getMessage());
+            throw new ManagerException("Ошибка загрузки данных из файла. " + e.getMessage());
         }
 
         return fileBackedTasksManager;
@@ -267,13 +267,13 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     }
 
     @Override
-    public void updateTask(Task task) throws Exception {
+    public void updateTask(Task task) {
         super.updateTask(task);
         save();
     }
 
     @Override
-    public void createTask(Task task) throws Exception {
+    public void createTask(Task task) {
         super.createTask(task);
         save();
     }
@@ -362,11 +362,11 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
             writer.newLine();
             writer.write(historyToString(getHistory()));
         } catch (IOException e) {
-            throw new ManagerSaveException("Произошла ошибка во время записи в файл: " + e.getMessage());
+            throw new ManagerException("Произошла ошибка во время записи в файл: " + e.getMessage());
         }
     }
 
-    private void createTaskWithoutSave(Task task) throws Exception {
+    private void createTaskWithoutSave(Task task) {
         super.createTask(task);
     }
 

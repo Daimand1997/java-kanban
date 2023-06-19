@@ -1,8 +1,6 @@
 package ru.yandex.tasks;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Epic extends Task {
@@ -14,6 +12,7 @@ public class Epic extends Task {
         this.endTime = LocalDateTime.MIN;
     }
 
+    @Override
     public LocalDateTime getEndTime() {
         return endTime;
     }
